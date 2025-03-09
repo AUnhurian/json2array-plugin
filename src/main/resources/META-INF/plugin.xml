@@ -1,0 +1,21 @@
+<idea-plugin>
+    <id>unhurian.json2array</id>
+    <name>Json2array</name>
+    <vendor email="support@yourcompany.com" url="https://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+        Плагін для конвертації JSON у PHP масив.
+    ]]></description>
+
+    <!-- Вказуємо залежність від PHP-плагіна -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.jetbrains.php</depends>
+
+    <extensions defaultExtensionNs="com.intellij"></extensions>
+
+    <actions>
+        <action id="Json2array" class="unhurian.json2array.Json2array" text="Convert JSON to PHP Array" description="Convert JSON to PHP Array">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt J"/>
+        </action>
+    </actions>
+</idea-plugin>
