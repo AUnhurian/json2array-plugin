@@ -10,14 +10,18 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.jetbrains.php</depends>
 
-    <extensions defaultExtensionNs="com.intellij"></extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Json to PHP Array" factoryClass="toolwindow.JsonConverterToolWindowFactory"
+                    icon="AllIcons.General.Information" anchor="right"/>
+    </extensions>
 
     <actions>
-        <action id="Json2array" class="actions.Json2array" text="Convert JSON to PHP Array" description="Convert JSON to PHP Array">
-            <add-to-group group-id="ToolsMenu" anchor="first"/>
-            <add-to-group group-id="EditorPopupMenu" anchor="before" relative-to-action="EditorCopy"/>
-            <add-to-group group-id="EditorActions" anchor="first"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt J"/>
+        <action id="Json2arrayAction"
+                class="actions.Json2array"
+                text="Convert JSON to PHP Array"
+                description="Convert selected JSON to PHP array"
+                icon="AllIcons.General.Information">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>
