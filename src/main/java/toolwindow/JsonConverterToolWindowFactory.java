@@ -95,7 +95,7 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
         jsonInputArea.setText(json);
     }
 
-    private String convertJsonToPhpArray(Object json, int indentLevel) {
+    public static String convertJsonToPhpArray(Object json, int indentLevel) {
         String indent = "    ".repeat(indentLevel);
 
         if (json instanceof JSONObject) {

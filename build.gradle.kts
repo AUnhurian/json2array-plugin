@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     implementation("org.json:json:20210307")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
 }
 
 // Configure Gradle IntelliJ Plugin
