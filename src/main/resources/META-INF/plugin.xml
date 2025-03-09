@@ -1,11 +1,30 @@
 <idea-plugin>
     <id>unhurian.json2array</id>
-    <name>Json2array</name>
-    <vendor email="support@yourcompany.com" url="https://www.yourcompany.com">YourCompany</vendor>
+    <name>Json2Array</name>
+    <vendor email="andrii.unhurian@sapient.pro" url="https://github.com/AUnhurian/json2array-plugin">Json2Array</vendor>
 
     <description><![CDATA[
-        Плагін для конвертації JSON у PHP масив.
-    ]]></description>
+JSON to PHP Array Converter is a powerful PhpStorm plugin that allows developers to quickly and efficiently convert JSON data into PHP associative arrays.
+
+### Features:
+✅ **Quick Conversion** – Instantly transform JSON into a well-formatted PHP array.
+✅ **Tool Window** – Provides a dedicated panel for input/output processing.
+✅ **Hotkey Support** – Use `Ctrl + Alt + J` (or `Cmd + Alt + J` on macOS) for quick conversion.
+✅ **Context Menu Integration** – Convert JSON directly from the editor's right-click menu.
+✅ **Automatic Formatting** – Properly formats nested arrays with indentation.
+✅ **Replace in Editor** – Instantly replaces selected JSON with the converted PHP array.
+
+### How It Works:
+1. **Select JSON text** in the editor.
+2. **Use the context menu** (`Right Click → Convert JSON to PHP Array`) or press `Ctrl + Alt + J`.
+3. **Tool Window opens** with JSON input and PHP output.
+4. **Modify the output if needed** and use **"Replace in Editor"** to insert the PHP array.
+
+This plugin is a must-have for Laravel, Symfony, or any PHP developer working with JSON data.
+
+🚀 **Boost your productivity and simplify JSON processing in PhpStorm!**
+]]></description>
+
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.jetbrains.php</depends>
@@ -21,6 +40,13 @@
                 text="Convert JSON to PHP Array"
                 description="Convert selected JSON to PHP array"
                 icon="AllIcons.FileTypes.Json">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+        <action id="QuickJsonToPhpAction"
+                class="actions.QuickJsonToPhpAction"
+                text="Quick Convert JSON to PHP"
+                description="Quickly convert JSON to PHP array and replace selection">
+            <keyboard-shortcut first-keystroke="ctrl alt J" keymap="$default"/>
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>

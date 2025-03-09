@@ -16,23 +16,11 @@ public class Json2array extends AnAction {
         String selectedJson = e.getData(CommonDataKeys.EDITOR) != null ?
                 Objects.requireNonNull(e.getData(CommonDataKeys.EDITOR)).getSelectionModel().getSelectedText() : "";
 
-        selectedJson = sanitizeJsonInput(selectedJson);
-
         ToolWindow toolWindow = ToolWindowManager.getInstance(Objects.requireNonNull(e.getProject())).getToolWindow("Json to PHP Array");
         if (toolWindow != null) {
-            String finalSelectedJson = selectedJson;
             toolWindow.show(() -> {
-                JsonConverterToolWindowFactory.getInstance().setJsonInput(finalSelectedJson);
+                JsonConverterToolWindowFactory.getInstance().setJsonInput(selectedJson);
             });
         }
-    }
-
-    private String sanitizeJsonInput(String input) {
-        if (input == null) return "";
-        input = input.trim();
-        if ((input.startsWith("\"") && input.endsWith("\"")) || (input.startsWith("'") && input.endsWith("'"))) {
-            input = input.substring(1, input.length() - 1);
-        }
-        return input;
     }
 }

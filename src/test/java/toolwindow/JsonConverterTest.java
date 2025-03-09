@@ -3,12 +3,11 @@ package toolwindow;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+import utils.JsonConverterUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonConverterTest {
-
-    private final JsonConverterToolWindowFactory converter = new JsonConverterToolWindowFactory();
 
     @Test
     void testSimpleObject() {
@@ -21,7 +20,7 @@ class JsonConverterTest {
                 ]
                 """.stripIndent();
 
-        assertEquals(expectedPhp, JsonConverterToolWindowFactory.convertJsonToPhpArray(new JSONObject(json), 0));
+        assertEquals(expectedPhp, JsonConverterUtil.convertJsonToPhpArray(new JSONObject(json), 0));
     }
 
     @Test
@@ -36,7 +35,7 @@ class JsonConverterTest {
                 ]
                 """.stripIndent();
 
-        assertEquals(expectedPhp, JsonConverterToolWindowFactory.convertJsonToPhpArray(new JSONObject(json), 0));
+        assertEquals(expectedPhp, JsonConverterUtil.convertJsonToPhpArray(new JSONObject(json), 0));
     }
 
     @Test
@@ -50,7 +49,7 @@ class JsonConverterTest {
                 ]
                 """.stripIndent();
 
-        assertEquals(expectedPhp, JsonConverterToolWindowFactory.convertJsonToPhpArray(new JSONArray(json), 0));
+        assertEquals(expectedPhp, JsonConverterUtil.convertJsonToPhpArray(new JSONArray(json), 0));
     }
 
     @Test
@@ -66,7 +65,7 @@ class JsonConverterTest {
                 ]
                 """.stripIndent();
 
-        assertEquals(expectedPhp, JsonConverterToolWindowFactory.convertJsonToPhpArray(new JSONObject(json), 0));
+        assertEquals(expectedPhp, JsonConverterUtil.convertJsonToPhpArray(new JSONObject(json), 0));
     }
 
     @Test
@@ -80,7 +79,7 @@ class JsonConverterTest {
                 ]
                 """.stripIndent();
 
-        assertEquals(expectedPhp, JsonConverterToolWindowFactory.convertJsonToPhpArray(new JSONObject(json), 0));
+        assertEquals(expectedPhp, JsonConverterUtil.convertJsonToPhpArray(new JSONObject(json), 0));
     }
 
     @Test
