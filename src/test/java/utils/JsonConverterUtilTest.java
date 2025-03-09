@@ -1,13 +1,12 @@
-package toolwindow;
+package utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import utils.JsonConverterUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JsonConverterTest {
+class JsonConverterUtilTest {
 
     @Test
     void testSimpleObject() {
@@ -86,5 +85,17 @@ class JsonConverterTest {
     void testInvalidJson() {
         String json = "{ \"name\": \"John\", \"age\": 30, ";
         assertThrows(org.json.JSONException.class, () -> new JSONObject(json));
+    }
+
+    @Test
+    void testJsonWithBackslashKey() {
+        String json = "{ \"Tests\\\\\": \"tests/\" }";
+        JSONObject jsonObject = new JSONObject(json);
+
+        String expectedPhpArray = "[\n    'Tests\\\\' => 'tests/',\n]";
+
+        String actualPhpArray = JsonConverterUtil.convertJsonToPhpArray(jsonObject, 0);
+
+        assertEquals(expectedPhpArray, actualPhpArray);
     }
 }
