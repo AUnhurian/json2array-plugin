@@ -24,9 +24,9 @@ public class JsonConverterUtil {
             StringBuilder phpArray = new StringBuilder("[\n");
 
             for (String key : jsonObject.keySet()) {
-                String escapedKey = key.replace("\\", "\\\\");
-
+                String escapedKey = key.replace("\\", "\\\\"); // Екранування \
                 Object value = jsonObject.get(key);
+
                 phpArray.append(indent).append("    '").append(escapedKey).append("' => ")
                         .append(convertJsonToPhpArray(value, indentLevel + 1)).append(",\n");
             }
@@ -43,7 +43,9 @@ public class JsonConverterUtil {
             phpArray.append(indent).append("]");
             return phpArray.toString();
         } else if (json instanceof String) {
-            return "'" + ((String) json).replace("\\", "\\\\") + "'";
+            // Екрануємо одинарну лапку (') у значеннях
+            String escapedValue = ((String) json).replace("'", "\\'");
+            return "'" + escapedValue + "'";
         } else if (json instanceof Number || json instanceof Boolean) {
             return json.toString();
         } else if (json == JSONObject.NULL) {

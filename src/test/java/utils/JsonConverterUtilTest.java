@@ -98,4 +98,16 @@ class JsonConverterUtilTest {
 
         assertEquals(expectedPhpArray, actualPhpArray);
     }
+
+    @Test
+    void testJsonWithSingleQuote() {
+        String json = "{ \"name\": \"O'Reilly\" }";
+        JSONObject jsonObject = new JSONObject(json);
+
+        String expectedPhpArray = "[\n    'name' => 'O\\'Reilly',\n]";
+
+        String actualPhpArray = JsonConverterUtil.convertJsonToPhpArray(jsonObject, 0);
+
+        assertEquals(expectedPhpArray, actualPhpArray);
+    }
 }
