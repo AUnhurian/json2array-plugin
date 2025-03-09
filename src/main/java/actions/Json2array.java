@@ -7,10 +7,13 @@ import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.SelectionModel;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.ui.Messages;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 import org.json.JSONObject;
-import com.intellij.openapi.command.WriteCommandAction;
+import org.json.JSONArray;
+
 
 public class Json2array extends AnAction {
     @Override
@@ -24,10 +27,13 @@ public class Json2array extends AnAction {
             selectedText = selectionModel.getSelectedText();
         }
 
-        // Якщо є виділений текст, підставляємо його у вікно введення
-        String jsonInput = Messages.showInputDialog(
+        // Видаляємо зайві лапки
+        String jsonInput = sanitizeJsonInput(selectedText);
+
+        // Відображаємо вікно введення з очищеним текстом
+        jsonInput = Messages.showInputDialog(
                 "Enter JSON:", "JSON to PHP Array", Messages.getQuestionIcon(),
-                selectedText != null ? selectedText : "", null
+                jsonInput, null
         );
 
         if (jsonInput == null || jsonInput.trim().isEmpty()) {
@@ -35,12 +41,18 @@ public class Json2array extends AnAction {
             return;
         }
 
+        // Перевіряємо, чи JSON валідний
+        if (!isValidJson(jsonInput)) {
+            Messages.showErrorDialog("Invalid JSON format! Please enter a valid JSON object.", "Error");
+            return;
+        }
+
         try {
             // Конвертуємо JSON у PHP масив
             JSONObject jsonObject = new JSONObject(jsonInput);
-            String phpArray = convertJsonToPhpArray(jsonObject.toString(2));
+            String phpArray = convertJsonToPhpArray(jsonObject);
 
-            // Відобразити результат та запропонувати заміну
+            // Відображаємо результат та даємо можливість замінити текст
             int result = Messages.showYesNoCancelDialog(
                     phpArray, "Converted PHP Array",
                     "Replace Selection", "Copy to Clipboard", "Cancel",
@@ -53,16 +65,59 @@ public class Json2array extends AnAction {
                 copyToClipboard(phpArray);
             }
         } catch (Exception ex) {
-            Messages.showErrorDialog("Invalid JSON format!", "Error");
+            Messages.showErrorDialog("Unexpected error occurred!", "Error");
         }
     }
 
-    private String convertJsonToPhpArray(String json) {
-        return json
-                .replace("{", "[")
-                .replace("}", "]")
-                .replace(":", " =>")
-                .replace("\"", "'");
+    private boolean isValidJson(String input) {
+        try {
+            new JSONObject(input);
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
+
+    private String sanitizeJsonInput(String input) {
+        if (input == null) return "";
+        input = input.trim();
+        if ((input.startsWith("\"") && input.endsWith("\"")) || (input.startsWith("'") && input.endsWith("'"))) {
+            input = input.substring(1, input.length() - 1);
+        }
+        return input;
+    }
+
+    private String convertJsonToPhpArray(Object json) {
+        if (json instanceof JSONObject) {
+            StringBuilder phpArray = new StringBuilder("[\n");
+            JSONObject jsonObject = (JSONObject) json;
+
+            for (String key : jsonObject.keySet()) {
+                Object value = jsonObject.get(key);
+                phpArray.append("    '").append(key).append("' => ").append(convertJsonToPhpArray(value)).append(",\n");
+            }
+
+            phpArray.append("]");
+            return phpArray.toString();
+        } else if (json instanceof JSONArray) {
+            StringBuilder phpArray = new StringBuilder("[\n");
+            JSONArray jsonArray = (JSONArray) json;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                phpArray.append("    ").append(convertJsonToPhpArray(jsonArray.get(i))).append(",\n");
+            }
+
+            phpArray.append("]");
+            return phpArray.toString();
+        } else if (json instanceof String) {
+            return "'" + json + "'";
+        } else if (json instanceof Number || json instanceof Boolean) {
+            return json.toString();
+        } else if (json == JSONObject.NULL) {
+            return "null";
+        }
+
+        return "null"; // fallback
     }
 
     private void replaceSelectedText(Editor editor, String newText) {
