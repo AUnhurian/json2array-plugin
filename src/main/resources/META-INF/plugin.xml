@@ -4,27 +4,25 @@
     <vendor email="andrii.unhurian@sapient.pro" url="https://github.com/AUnhurian/json2array-plugin">Json2Array</vendor>
 
     <description><![CDATA[
-JSON to PHP Array Converter is a powerful PhpStorm plugin that allows developers to quickly and efficiently convert JSON data into PHP associative arrays.
+JSON to PHP Array Converter is a powerful PhpStorm plugin that allows developers to quickly and efficiently convert JSON data into PHP associative arrays.<br><br>
 
-### Features:
-✅ **Quick Conversion** – Instantly transform JSON into a well-formatted PHP array.
-✅ **Tool Window** – Provides a dedicated panel for input/output processing.
-✅ **Hotkey Support** – Use `Ctrl + Alt + J` (or `Cmd + Alt + J` on macOS) for quick conversion.
-✅ **Context Menu Integration** – Convert JSON directly from the editor's right-click menu.
-✅ **Automatic Formatting** – Properly formats nested arrays with indentation.
-✅ **Replace in Editor** – Instantly replaces selected JSON with the converted PHP array.
+<b>Features:</b><br>
+✅ <b>Quick Conversion</b> – Instantly transform JSON into a well-formatted PHP array.<br>
+✅ <b>Tool Window</b> – Provides a dedicated panel for input/output processing.<br>
+✅ <b>Hotkey Support</b> – Use <code>Ctrl + Alt + J</code> (or <code>Cmd + Alt + J</code> on macOS) for quick conversion.<br>
+✅ <b>Context Menu Integration</b> – Convert JSON directly from the editor's right-click menu.<br>
+✅ <b>Automatic Formatting</b> – Properly formats nested arrays with indentation.<br>
+✅ <b>Replace in Editor</b> – Instantly replaces selected JSON with the converted PHP array.<br><br>
 
-### How It Works:
-1. **Select JSON text** in the editor.
-2. **Use the context menu** (`Right Click → Convert JSON to PHP Array`) or press `Ctrl + Alt + J`.
-3. **Tool Window opens** with JSON input and PHP output.
-4. **Modify the output if needed** and use **"Replace in Editor"** to insert the PHP array.
+<b>How It Works:</b><br>
+1. <b>Select JSON text</b> in the editor.<br>
+2. <b>Use the context menu</b> (<i>Right Click → Convert JSON to PHP Array</i>) or press <code>Ctrl + Alt + J</code>.<br>
+3. <b>Tool Window opens</b> with JSON input and PHP output.<br>
+4. <b>Modify the output if needed</b> and use <i>"Replace in Editor"</i> to insert the PHP array.<br><br>
 
-This plugin is a must-have for Laravel, Symfony, or any PHP developer working with JSON data.
-
-🚀 **Boost your productivity and simplify JSON processing in PhpStorm!**
+This plugin is a must-have for Laravel, Symfony, or any PHP developer working with JSON data. 🚀<br>
+<b>Boost your productivity and simplify JSON processing in PhpStorm!</b>
 ]]></description>
-
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.jetbrains.php</depends>
