@@ -12,7 +12,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Json to PHP Array" factoryClass="toolwindow.JsonConverterToolWindowFactory"
-                    icon="AllIcons.General.Information" anchor="right"/>
+                    icon="AllIcons.FileTypes.Json" anchor="right"/>
     </extensions>
 
     <actions>
@@ -20,7 +20,7 @@
                 class="actions.Json2array"
                 text="Convert JSON to PHP Array"
                 description="Convert selected JSON to PHP array"
-                icon="AllIcons.General.Information">
+                icon="AllIcons.FileTypes.Json">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
