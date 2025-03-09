@@ -13,14 +13,11 @@ import java.util.Objects;
 public class Json2array extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        // Отримуємо виділений JSON
         String selectedJson = e.getData(CommonDataKeys.EDITOR) != null ?
                 Objects.requireNonNull(e.getData(CommonDataKeys.EDITOR)).getSelectionModel().getSelectedText() : "";
 
-        // Видаляємо зайві лапки
         selectedJson = sanitizeJsonInput(selectedJson);
 
-        // Відкриваємо Tool Window
         ToolWindow toolWindow = ToolWindowManager.getInstance(Objects.requireNonNull(e.getProject())).getToolWindow("Json to PHP Array");
         if (toolWindow != null) {
             String finalSelectedJson = selectedJson;

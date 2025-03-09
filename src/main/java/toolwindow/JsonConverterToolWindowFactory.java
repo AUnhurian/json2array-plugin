@@ -1,8 +1,10 @@
 package toolwindow;
 
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
+import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.content.Content;
@@ -43,12 +45,17 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
         JButton convertButton = new JButton("Convert to PHP Array");
         JButton replaceButton = new JButton("Replace in Editor");
 
+        JBLabel outputLabel = new JBLabel("Output:");
+        JPanel outputPanel = new JPanel(new BorderLayout());
+        outputPanel.add(outputLabel, BorderLayout.NORTH);
+        outputPanel.add(outputScroll, BorderLayout.CENTER);
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(convertButton);
         buttonPanel.add(replaceButton);
 
         panel.add(inputScroll, BorderLayout.NORTH);
-        panel.add(outputScroll, BorderLayout.CENTER);
+        panel.add(outputPanel, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         ContentFactory contentFactory = ContentFactory.getInstance();
@@ -58,29 +65,21 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
         convertButton.addActionListener(e -> {
             String jsonText = jsonInputArea.getText().trim();
 
-            // Перевіряємо, чи JSON валідний
             try {
                 Object jsonObject;
 
-                // Якщо це об'єкт { ... }
                 if (jsonText.startsWith("{")) {
                     jsonObject = new JSONObject(jsonText);
-                }
-                // Якщо це масив [ ... ]
-                else if (jsonText.startsWith("[")) {
+                } else if (jsonText.startsWith("[")) {
                     jsonObject = new JSONArray(jsonText);
-                }
-                // Інакше помилка
-                else {
-                    phpOutputArea.setText("❌ Invalid JSON format!");
-                    return;
+                } else {
+                    throw new Exception("Invalid JSON format!");
                 }
 
-                // Конвертуємо в PHP array
                 String phpArray = convertJsonToPhpArray(jsonObject, 0);
                 phpOutputArea.setText(phpArray);
             } catch (Exception ex) {
-                phpOutputArea.setText("❌ Invalid JSON format!");
+                Messages.showErrorDialog("Invalid JSON format!\n\nError: " + (ex.getMessage() != null ? ex.getMessage() : "Unknown error"), "JSON Error");
             }
         });
 
@@ -97,7 +96,7 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
     }
 
     private String convertJsonToPhpArray(Object json, int indentLevel) {
-        String indent = "    ".repeat(indentLevel); // Tabulation
+        String indent = "    ".repeat(indentLevel);
 
         if (json instanceof JSONObject) {
             StringBuilder phpArray = new StringBuilder("[\n");
