@@ -7,14 +7,16 @@
         Плагін для конвертації JSON у PHP масив.
     ]]></description>
 
-    <!-- Вказуємо залежність від PHP-плагіна -->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.jetbrains.php</depends>
 
     <extensions defaultExtensionNs="com.intellij"></extensions>
 
     <actions>
-        <action id="Json2array" class="unhurian.json2array.Json2array" text="Convert JSON to PHP Array" description="Convert JSON to PHP Array">
+        <action id="Json2array" class="actions.Json2array" text="Convert JSON to PHP Array" description="Convert JSON to PHP Array">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="before" relative-to-action="EditorCopy"/>
+            <add-to-group group-id="EditorActions" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt J"/>
         </action>
     </actions>

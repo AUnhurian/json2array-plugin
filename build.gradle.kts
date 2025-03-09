@@ -23,6 +23,11 @@ intellij {
     plugins.set(listOf("com.jetbrains.php"))
 }
 
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21)) // Використовуємо Java 23
+//    toolchain.vendor.set(JvmVendorSpec.ANY)
+}
+
 tasks {
     patchPluginXml {
         changeNotes.set("First version of JSON to PHP Array converter")
