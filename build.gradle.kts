@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "unhurian"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -25,7 +25,7 @@ intellij {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21)) // Використовуємо Java 23
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 //    toolchain.vendor.set(JvmVendorSpec.ANY)
 }
 

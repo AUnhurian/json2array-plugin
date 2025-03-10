@@ -9,25 +9,18 @@ import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
-import com.intellij.openapi.editor.Editor;
+import org.jetbrains.annotations.NotNull;
 import utils.JsonConverterUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class JsonConverterToolWindowFactory implements ToolWindowFactory {
-    private static JsonConverterToolWindowFactory instance;
     private JBTextArea jsonInputArea;
     private JBTextArea phpOutputArea;
 
-    public static JsonConverterToolWindowFactory getInstance() {
-        return instance;
-    }
-
     @Override
-    public void createToolWindowContent(Project project, ToolWindow toolWindow) {
-        instance = this;
-
+    public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         JPanel panel = new JPanel(new BorderLayout());
 
         jsonInputArea = new JBTextArea(10, 50);
@@ -59,25 +52,30 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
 
         convertButton.addActionListener(e -> {
             String jsonText = jsonInputArea.getText().trim();
-
             try {
                 Object jsonObject = JsonConverterUtil.validateAndParseJson(jsonText);
                 String phpArray = JsonConverterUtil.convertJsonToPhpArray(jsonObject, 0);
                 phpOutputArea.setText(phpArray);
             } catch (Exception ex) {
-                Messages.showErrorDialog("Invalid JSON format!\n\nError: " + (ex.getMessage() != null ? ex.getMessage() : "Unknown error"), "JSON Error");
+                Messages.showErrorDialog(project, "Invalid JSON format!\n\nError: " + ex.getMessage(), "JSON Error");
             }
         });
 
         replaceButton.addActionListener(e -> {
-            Editor editor = com.intellij.openapi.editor.EditorFactory.getInstance().getAllEditors()[0];
-            if (editor != null) {
-                JsonConverterUtil.replaceSelectedText(editor, phpOutputArea.getText());
+            var editor = com.intellij.openapi.editor.EditorFactory.getInstance().getAllEditors();
+            if (editor.length > 0) {
+                JsonConverterUtil.replaceSelectedText(editor[0], phpOutputArea.getText());
             }
         });
+
+        JsonConverterToolWindowService.getInstance(project).setToolWindow(this);
     }
 
     public void setJsonInput(String json) {
         jsonInputArea.setText(json);
+    }
+
+    public static JsonConverterToolWindowFactory getInstance(Project project) {
+        return JsonConverterToolWindowService.getInstance(project).getToolWindow();
     }
 }

@@ -21,10 +21,14 @@ public class JsonConverterUtil {
         String indent = "    ".repeat(indentLevel);
 
         if (json instanceof JSONObject jsonObject) {
+            if (jsonObject.isEmpty()) {
+                return "[]";
+            }
+
             StringBuilder phpArray = new StringBuilder("[\n");
 
             for (String key : jsonObject.keySet()) {
-                String escapedKey = key.replace("\\", "\\\\"); // Екранування \
+                String escapedKey = key.replace("\\", "\\\\"); // Екранування `\`
                 Object value = jsonObject.get(key);
 
                 phpArray.append(indent).append("    '").append(escapedKey).append("' => ")
@@ -34,18 +38,23 @@ public class JsonConverterUtil {
             phpArray.append(indent).append("]");
             return phpArray.toString();
         } else if (json instanceof JSONArray jsonArray) {
-            StringBuilder phpArray = new StringBuilder("[\n");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                phpArray.append(indent).append("    ").append(convertJsonToPhpArray(jsonArray.get(i), indentLevel + 1)).append(",\n");
+            if (jsonArray.isEmpty()) {
+                return "[]";
             }
 
-            phpArray.append(indent).append("]");
+            StringBuilder phpArray = new StringBuilder("[");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                phpArray.append(convertJsonToPhpArray(jsonArray.get(i), indentLevel + 1)).append(", ");
+            }
+
+            if (!jsonArray.isEmpty()) {
+                phpArray.setLength(phpArray.length() - 2);
+            }
+            phpArray.append("]");
+
             return phpArray.toString();
         } else if (json instanceof String) {
-            // Екрануємо одинарну лапку (') у значеннях
-            String escapedValue = ((String) json).replace("'", "\\'");
-            return "'" + escapedValue + "'";
+            return "'" + ((String) json).replace("'", "\\'") + "'";
         } else if (json instanceof Number || json instanceof Boolean) {
             return json.toString();
         } else if (json == JSONObject.NULL) {
