@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "unhurian"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -31,6 +31,6 @@ java {
 
 tasks {
     patchPluginXml {
-        changeNotes.set("First version of JSON to PHP Array converter")
+        changeNotes.set("Fixed indentation for objects in the JSON array.")
     }
 }

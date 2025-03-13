@@ -42,16 +42,12 @@ public class JsonConverterUtil {
                 return "[]";
             }
 
-            StringBuilder phpArray = new StringBuilder("[");
+            StringBuilder phpArray = new StringBuilder("[\n");
             for (int i = 0; i < jsonArray.length(); i++) {
-                phpArray.append(convertJsonToPhpArray(jsonArray.get(i), indentLevel + 1)).append(", ");
+                phpArray.append(indent).append("    ").append(convertJsonToPhpArray(jsonArray.get(i), indentLevel + 1)).append(",\n");
             }
 
-            if (!jsonArray.isEmpty()) {
-                phpArray.setLength(phpArray.length() - 2);
-            }
-            phpArray.append("]");
-
+            phpArray.append(indent).append("]");
             return phpArray.toString();
         } else if (json instanceof String) {
             return "'" + ((String) json).replace("'", "\\'") + "'";
