@@ -26,6 +26,7 @@ This plugin is a must-have for Laravel, Symfony, or any PHP developer working wi
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.jetbrains.php</depends>
+    <depends>com.intellij.modules.json</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="Json to PHP Array" factoryClass="toolwindow.JsonConverterToolWindowFactory"

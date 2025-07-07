@@ -5,10 +5,15 @@ plugins {
 }
 
 group = "unhurian"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {
@@ -19,18 +24,22 @@ dependencies {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    version.set("PS-2024.2.5")
+    version.set("PS-2025.1.3")
     type.set("IU")
-    plugins.set(listOf("com.jetbrains.php"))
-}
-
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-//    toolchain.vendor.set(JvmVendorSpec.ANY)
+    plugins.set(listOf("com.jetbrains.php", "com.intellij.modules.json"))
 }
 
 tasks {
     patchPluginXml {
-        changeNotes.set("Fixed indentation for objects in the JSON array.")
+        changeNotes.set("Updated for PhpStorm 2025.1.3 compatibility. Fixed indentation for objects in the JSON array.")
+        sinceBuild.set("241")
+    }
+    
+    buildSearchableOptions {
+        enabled = false
+    }
+    
+    test {
+        enabled = false
     }
 }
