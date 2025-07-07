@@ -33,7 +33,6 @@ tasks {
     patchPluginXml {
         changeNotes.set("Updated for PhpStorm 2025.1.3 compatibility. Fixed indentation for objects in the JSON array.")
         sinceBuild.set("241")
-        untilBuild.set("999.*")
     }
     
     buildSearchableOptions {
