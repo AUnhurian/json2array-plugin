@@ -83,4 +83,16 @@ public class JsonConverterUtil {
 
         return input;
     }
+
+    /**
+     * Converts a PHP array string to JSON format with pretty formatting.
+     * This is the main method for PHP array to JSON conversion.
+     * 
+     * @param phpArray The PHP array string to convert
+     * @return Formatted JSON string
+     * @throws Exception If the PHP array format is invalid or conversion fails
+     */
+    public static String convertPhpArrayToJson(String phpArray) throws Exception {
+        return PhpToJsonConverter.convertPhpArrayToJson(phpArray);
+    }
 }

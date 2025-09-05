@@ -1,6 +1,6 @@
-# **JSON to PHP Array Converter Plugin**
-A **PhpStorm plugin** that converts **JSON to a PHP array**.  
-The plugin provides a **tool window** for JSON input and output, allowing easy conversion and replacement within the editor.
+# **JSON ↔ PHP Array Converter Plugin**
+A **PhpStorm plugin** that converts **JSON to PHP array** and **PHP array to JSON**.  
+The plugin provides a **tool window** for JSON input and output, allowing easy bidirectional conversion and replacement within the editor.
 
 ✅ **Tested on:**
 - **Java 21**
@@ -121,6 +121,8 @@ Starts a **development instance** of PhpStorm **(2024.2.5)** with the plugin loa
 ---
 
 ## **Usage**
+
+### **JSON to PHP Array**
 1. Select **JSON text** in PhpStorm.
 2. Right-click and choose **"Convert JSON to PHP Array"**.
 3. The **tool window** opens with:
@@ -128,6 +130,22 @@ Starts a **development instance** of PhpStorm **(2024.2.5)** with the plugin loa
    - **Converted PHP array**
    - **Replace in Editor** button
 4. Modify or copy the output as needed.
+
+### **PHP Array to JSON**
+1. Open the **"Json to PHP Array"** tool window.
+2. Paste your **PHP array** in the output field (or convert JSON first).
+3. Click **"Convert to JSON"** button.
+4. The JSON will appear in the input field.
+5. Use **"Replace in Editor"** to replace selected text with JSON.
+
+### **Features**
+- ✅ **Bidirectional conversion**: JSON ↔ PHP Array
+- ✅ **Nested objects and arrays** support
+- ✅ **Boolean, null, and numeric values** handling
+- ✅ **String escaping** for special characters
+- ✅ **Quick conversion** via context menu
+- ✅ **Tool window** for complex conversions
+- ✅ **Replace in editor** functionality
 
 ---
 
