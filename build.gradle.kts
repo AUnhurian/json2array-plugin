@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "unhurian"
-version = "1.0.3"
+version = "1.0.4"
 
 repositories {
     mavenCentral()
@@ -31,7 +31,7 @@ intellij {
 
 tasks {
     patchPluginXml {
-        changeNotes.set("Updated for PhpStorm 2025.1.3 compatibility. Fixed indentation for objects in the JSON array.")
+        changeNotes.set("Implement possibility convert to JSON with pretty print")
         sinceBuild.set("241")
     }
     

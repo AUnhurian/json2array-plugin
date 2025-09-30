@@ -31,6 +31,7 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
         JBScrollPane outputScroll = new JBScrollPane(phpOutputArea);
 
         JButton convertButton = new JButton("Convert to PHP Array");
+        JButton convertToJsonButton = new JButton("Convert to JSON");
         JButton replaceButton = new JButton("Replace in Editor");
 
         JBLabel outputLabel = new JBLabel("Output:");
@@ -40,6 +41,7 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(convertButton);
+        buttonPanel.add(convertToJsonButton);
         buttonPanel.add(replaceButton);
 
         panel.add(inputScroll, BorderLayout.NORTH);
@@ -58,6 +60,16 @@ public class JsonConverterToolWindowFactory implements ToolWindowFactory {
                 phpOutputArea.setText(phpArray);
             } catch (Exception ex) {
                 Messages.showErrorDialog(project, "Invalid JSON format!\n\nError: " + ex.getMessage(), "JSON Error");
+            }
+        });
+
+        convertToJsonButton.addActionListener(e -> {
+            String phpArrayText = phpOutputArea.getText().trim();
+            try {
+                String json = JsonConverterUtil.convertPhpArrayToJson(phpArrayText);
+                jsonInputArea.setText(json);
+            } catch (Exception ex) {
+                Messages.showErrorDialog(project, "Invalid PHP array format!\n\nError: " + ex.getMessage(), "PHP Array Error");
             }
         });
 
